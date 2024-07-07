@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/FlowElement.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "![Lit](https://img.shields.io/badge/lit-3.0.0-blue.svg)\n\n## `<flow-element>`\n\nhttps://github.com/lit/lit/discussions/4690",
+          "name": "FlowElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "surface",
+              "privacy": "public",
+              "default": "undefined",
+              "attribute": "surface",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "flowController"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "surface",
+              "default": "undefined",
+              "fieldName": "surface"
+            }
+          ],
+          "superclass": {
+            "name": "BaseContextMetaElement",
+            "package": "@blockquote-web-components/blockquote-controller-context-meta"
+          },
+          "tagName": "flow-element",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FlowElement",
+          "declaration": {
+            "name": "FlowElement",
+            "module": "src/FlowElement.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/consumer-context.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "consumerContext",
+          "type": {
+            "text": "string"
+          },
+          "default": "'symbol-surface'"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "consumerContext",
+          "declaration": {
+            "name": "consumerContext",
+            "module": "src/consumer-context.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/consumer-element.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ConsumerElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "callback"
+            },
+            {
+              "kind": "field",
+              "name": "surface",
+              "privacy": "public",
+              "default": "undefined",
+              "attribute": "surface",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "propertyContext",
+              "default": "new BlockquoteControllerContextMeta(this, { context: consumerContext, callback: this.callback, })"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "surface",
+              "default": "undefined",
+              "fieldName": "surface"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "consumer-element",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "consumer-element",
+          "declaration": {
+            "name": "ConsumerElement",
+            "module": "src/consumer-element.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FlowElement",
+          "declaration": {
+            "name": "FlowElement",
+            "module": "./FlowElement.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/provider-element.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ProviderElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "surface",
+              "privacy": "public",
+              "default": "undefined",
+              "attribute": "surface",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "propertyContext",
+              "default": "new BlockquoteControllerContextMeta(this, { context: consumerContext, })"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "surface",
+              "default": "undefined",
+              "fieldName": "surface"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "provider-element",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "provider-element",
+          "declaration": {
+            "name": "ProviderElement",
+            "module": "src/provider-element.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/define/flow-element.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "flow-element",
+          "declaration": {
+            "name": "FlowElement",
+            "module": "/src/FlowElement.js"
+          }
+        }
+      ]
+    }
+  ]
+}
