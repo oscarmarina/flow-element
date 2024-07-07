@@ -1,0 +1,40 @@
+{
+  "name": "@blockquote/flow-element",
+  "version": "1.0.0-rc.1",
+  "description": "This approach simplifies the integration of context providers into a standard elements, enhancing functionality while preserving the core behavior of standard elements.",
+  "keywords": [
+    "lit",
+    "web-component",
+    "lit-element",
+    "context",
+    "provider",
+    "Customized Built-in Elements"
+  ],
+  "license": "MIT",
+  "author": "flow-element",
+  "type": "module",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@blockquote-web-components/blockquote-controller-context-meta": "^1.2.0",
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "tslib": "^2.8.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
