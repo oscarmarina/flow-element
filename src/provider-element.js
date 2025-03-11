@@ -4,6 +4,20 @@ import {consumerContext} from './consumer-context.js';
 import './define/flow-element.js';
 import './consumer-element.js';
 
+const contextMetaKey = Symbol();
+
+export function createContextMetaKey(element, contextOrOptions) {
+  if (element[contextMetaKey]) {
+    return element[contextMetaKey];
+  }
+
+  const ctx =
+    contextOrOptions?.context !== undefined ? {...contextOrOptions} : {context: contextOrOptions};
+
+  element[contextMetaKey] = new BlockquoteControllerContextMeta(element, ctx);
+  return element[contextMetaKey];
+}
+
 const handleSurface = (surface) => {
   switch (surface) {
     case 'dim':
@@ -69,7 +83,24 @@ class ProviderElement extends LitElement {
     super.willUpdate?.(props);
     if (props.has('surface')) {
       this.propertyContext.setValue(this.surface);
+      this.divs?.forEach((div) => {
+        console.log('div', div[contextMetaKey]);
+        div[contextMetaKey].setValue(handleSurface(this.surface));
+      });
     }
+  }
+
+  firstUpdated(props) {
+    super.firstUpdated?.(props);
+    this.divs = this.shadowRoot?.querySelectorAll('div');
+
+    this.divs?.forEach((div) => {
+      console.log('provider', div);
+      createContextMetaKey(div, {
+        context: consumerContext,
+        initialValue: handleSurface(this.surface),
+      });
+    });
   }
 
   render() {
@@ -78,16 +109,22 @@ class ProviderElement extends LitElement {
       <consumer-element>Consumer in Shadow DOM</consumer-element>
       <slot></slot>
       <hr />
-      <flow-element id="A" class="container" .surface="${handleSurface(this.surface)}">
+      <div id="A-div" class="container" .surface="${handleSurface(this.surface)}">
+        <p><code>flow-element:</code> container - provider element</p>
+        <consumer-element>Consumer in Shadow DOM</consumer-element>
+        <slot name="container2"></slot>
+      </div>
+      <hr />
+      <div id="B-div" class="container" .surface="${handleSurface(this.surface)}">
         <p><code>flow-element:</code> container - provider element</p>
         <consumer-element>Consumer in Shadow DOM</consumer-element>
         <slot name="container"></slot>
-        <flow-element id="B" class="nested-container" .surface="${this.surface}">
+        <flow-element id="C-div" class="nested-container" .surface="${this.surface}">
           <p><code>flow-element:</code> nested container - provider element</p>
           <slot name="nested-container"></slot>
           <consumer-element>Consumer in Shadow DOM</consumer-element>
         </flow-element>
-      </flow-element>
+      </div>
       <hr />
       <consumer-element>Consumer in Shadow DOM</consumer-element>
     `;
