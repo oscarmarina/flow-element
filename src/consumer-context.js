@@ -1,1 +1,1 @@
-export const consumerContext = 'symbol-surface';
+export const consumerContext = Symbol.for('symbol-surface');

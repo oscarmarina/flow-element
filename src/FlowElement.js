@@ -1,4 +1,7 @@
-import {BaseContextMetaElement} from '@blockquote-web-components/blockquote-controller-context-meta';
+import {
+  BlockquoteControllerContextMeta,
+  BaseContextMetaElement,
+} from '@blockquote-web-components/blockquote-controller-context-meta';
 import {consumerContext} from './consumer-context.js';
 
 /**
@@ -16,7 +19,10 @@ export class FlowElement extends BaseContextMetaElement {
   constructor() {
     super();
     this.surface = undefined;
-    this.flowController = this.initOrGetContextProvider(consumerContext);
+
+    this.flowController = new BlockquoteControllerContextMeta(this, {
+      context: consumerContext,
+    });
   }
 
   willUpdate(props) {
