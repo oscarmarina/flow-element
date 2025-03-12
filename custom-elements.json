@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "![Lit](https://img.shields.io/badge/lit-3.0.0-blue.svg)\n\n## `<flow-element>`\n\nhttps://github.com/lit/lit/discussions/4690",
+          "description": "![Lit](https://img.shields.io/badge/lit-3.0.0-blue.svg)\n\n## `<flow-element>`\n\nhttps://github.com/lit/lit/discussions/4690\n\nhttps://bugs.webkit.org/show_bug.cgi?id=289868",
           "name": "FlowElement",
           "members": [
             {
@@ -21,7 +21,8 @@
             },
             {
               "kind": "field",
-              "name": "flowController"
+              "name": "flowController",
+              "default": "new BlockquoteControllerContextMeta(this, { context: consumerContext, })"
             }
           ],
           "attributes": [
@@ -56,11 +57,7 @@
       "declarations": [
         {
           "kind": "variable",
-          "name": "consumerContext",
-          "type": {
-            "text": "string"
-          },
-          "default": "'symbol-surface'"
+          "name": "consumerContext"
         }
       ],
       "exports": [

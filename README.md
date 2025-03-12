@@ -4,6 +4,8 @@
 
 https://github.com/lit/lit/discussions/4690
 
+https://bugs.webkit.org/show_bug.cgi?id=289868
+
 
 ### `src/FlowElement.js`:
 
@@ -11,10 +13,10 @@ https://github.com/lit/lit/discussions/4690
 
 ##### Fields
 
-| Name             | Privacy | Type | Default     | Description | Inherited From |
-| ---------------- | ------- | ---- | ----------- | ----------- | -------------- |
-| `surface`        | public  |      | `undefined` |             |                |
-| `flowController` |         |      |             |             |                |
+| Name             | Privacy | Type | Default                                                                    | Description | Inherited From |
+| ---------------- | ------- | ---- | -------------------------------------------------------------------------- | ----------- | -------------- |
+| `surface`        | public  |      | `undefined`                                                                |             |                |
+| `flowController` |         |      | `new BlockquoteControllerContextMeta(this, { context: consumerContext, })` |             |                |
 
 ##### Attributes
 
@@ -34,9 +36,9 @@ https://github.com/lit/lit/discussions/4690
 
 #### Variables
 
-| Name              | Description | Type     |
-| ----------------- | ----------- | -------- |
-| `consumerContext` |             | `string` |
+| Name              | Description | Type |
+| ----------------- | ----------- | ---- |
+| `consumerContext` |             |      |
 
 <hr/>
 

@@ -1,4 +1,7 @@
-import {BaseContextMetaElement} from '@blockquote-web-components/blockquote-controller-context-meta';
+import {
+  BlockquoteControllerContextMeta,
+  BaseContextMetaElement,
+} from '@blockquote-web-components/blockquote-controller-context-meta';
 import {consumerContext} from './consumer-context.js';
 
 /**
@@ -7,6 +10,8 @@ import {consumerContext} from './consumer-context.js';
  * ## `<flow-element>`
  *
  * https://github.com/lit/lit/discussions/4690
+ *
+ * https://bugs.webkit.org/show_bug.cgi?id=289868
  */
 export class FlowElement extends BaseContextMetaElement {
   static properties = {
@@ -16,7 +21,10 @@ export class FlowElement extends BaseContextMetaElement {
   constructor() {
     super();
     this.surface = undefined;
-    this.flowController = this.initOrGetContextProvider(consumerContext);
+
+    this.flowController = new BlockquoteControllerContextMeta(this, {
+      context: consumerContext,
+    });
   }
 
   willUpdate(props) {
