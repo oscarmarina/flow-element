@@ -1,34 +1,17 @@
-import {
-  BlockquoteControllerContextMeta,
-  BaseContextMetaElement,
-} from '@blockquote-web-components/blockquote-controller-context-meta';
-import {consumerContext} from './consumer-context.js';
+import {css} from 'lit';
+import {BaseContextMetaElement} from '@blockquote-web-components/blockquote-controller-context-meta';
 
-/**
- * ![Lit](https://img.shields.io/badge/lit-3.0.0-blue.svg)
- *
- * ## `<flow-element>`
- *
- * https://github.com/lit/lit/discussions/4690
- */
 export class FlowElement extends BaseContextMetaElement {
   static properties = {
     surface: {reflect: true},
   };
 
-  constructor() {
-    super();
-    this.surface = undefined;
-
-    this.flowController = new BlockquoteControllerContextMeta(this, {
-      context: consumerContext,
-    });
-  }
-
-  willUpdate(props) {
-    super.willUpdate?.(props);
-    if (props.has('surface')) {
-      this.flowController?.setValue(this.surface);
-    }
-  }
+  static styles = [
+    super.styles,
+    css`
+      :host {
+        outline: 0.125rem solid #ffd700;
+      }
+    `,
+  ];
 }

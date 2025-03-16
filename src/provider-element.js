@@ -1,21 +1,8 @@
 import {LitElement, html, css} from 'lit';
-import {
-  BlockquoteControllerContextMeta,
-  contextMetaProvider,
-} from '@blockquote-web-components/blockquote-controller-context-meta';
-import {consumerContext} from './consumer-context.js';
 import './define/flow-element.js';
 import './consumer-element.js';
 
-const handleSurface = (surface) => {
-  switch (surface) {
-    case 'dim':
-      return 'bright';
-    default:
-      return 'dim';
-  }
-};
-
+// https://bugs.webkit.org/show_bug.cgi?id=289868
 class ProviderElement extends LitElement {
   static styles = css`
     :host {
@@ -29,23 +16,30 @@ class ProviderElement extends LitElement {
       display: none !important;
     }
 
-    .container,
-    .nested-container {
+    :host,
+    .container {
+      color: var(--_default-text-color);
+      background-color: var(--_default-bg-color);
+    }
+
+    .container {
       padding: 1rem;
     }
 
     :host(:not([surface='dim'])),
     :host([surface='dim']) .container,
-    :host(:not([surface='dim'])) .nested-container {
-      background-color: #e5a427;
-      color: #342100;
+    :host(:not([surface='dim'])) .container .container {
+      --_default-text-color: var(--color-primary-text, #342100);
+      --_default-bg-color: var(--color-primary-surface, #e5a427);
+      --surface: initial;
     }
 
     :host([surface='dim']),
     :host(:not([surface='dim'])) .container,
-    :host([surface='dim']) .nested-container {
-      background-color: #543b0f;
-      color: #ede1d3;
+    :host([surface='dim']) .container .container {
+      --_default-text-color: var(--color-primary-dim-text, #ede1d3);
+      --_default-bg-color: var(--color-primary-dim-surface, #543b0f);
+      --surface: dim;
     }
 
     hr {
@@ -60,51 +54,23 @@ class ProviderElement extends LitElement {
     surface: {reflect: true},
   };
 
-  constructor() {
-    super();
-    this.surface = undefined;
-    this.propertyContext = new BlockquoteControllerContextMeta(this, {
-      context: consumerContext,
-    });
-  }
-
-  willUpdate(props) {
-    super.willUpdate?.(props);
-    if (props.has('surface')) {
-      this.propertyContext.setValue(this.surface);
-    }
-  }
-
   render() {
     return html`
       <p>Provider element</p>
       <consumer-element>Consumer in Shadow DOM</consumer-element>
       <slot></slot>
       <hr />
-      <div
-        id="A-div"
-        class="container"
-        ${contextMetaProvider(handleSurface(this.surface), {
-          context: consumerContext,
-        })}
-      >
+      <div id="A-div" class="container">
         <p><code>native div element:</code> container - provider element</p>
         <consumer-element>Consumer in Shadow DOM</consumer-element>
         <slot name="containerA"></slot>
       </div>
       <hr />
-      <div
-        id="B-div"
-        class="container"
-        data-surface="${contextMetaProvider(
-          handleSurface(this.surface),
-          /** @type {*} */ (consumerContext)
-        )}"
-      >
+      <div id="B-div" class="container">
         <p><code>native div element:</code> container - provider element</p>
         <consumer-element>Consumer in Shadow DOM</consumer-element>
         <slot name="containerB"></slot>
-        <flow-element id="C-div" class="nested-container" .surface="${this.surface}">
+        <flow-element id="C-div" class="container">
           <p><code>flow-element:</code> nested container - provider element</p>
           <slot name="nested-container"></slot>
           <consumer-element>Consumer in Shadow DOM</consumer-element>
