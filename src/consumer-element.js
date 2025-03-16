@@ -1,6 +1,4 @@
-import {LitElement, html, css, nothing} from 'lit';
-import {BlockquoteControllerContextMeta} from '@blockquote-web-components/blockquote-controller-context-meta';
-import {consumerContext} from './consumer-context.js';
+import {LitElement, html, css} from 'lit';
 
 class ConsumerElement extends LitElement {
   static styles = css`
@@ -8,7 +6,7 @@ class ConsumerElement extends LitElement {
       display: block;
       padding: 0.5rem 1rem;
       margin: 1rem 0;
-      background-color: #ffd28d;
+      background-color: #e5c492;
       color: #432c00;
       contain: content;
     }
@@ -18,30 +16,16 @@ class ConsumerElement extends LitElement {
       display: none !important;
     }
 
-    :host([surface='dim']) {
-      background-color: #cee36a;
-      color: #2c3400;
+    @container style(--surface: dim) {
+      :host {
+        background-color: #cee36a;
+        color: #2c3400;
+      }
     }
   `;
 
-  static properties = {
-    surface: {reflect: true},
-  };
-
-  constructor() {
-    super();
-    this.surface = undefined;
-
-    this.propertyContext = new BlockquoteControllerContextMeta(this, {
-      context: consumerContext,
-      callback: this.callback,
-    });
-  }
-
-  callback = (v) => v && (this.surface = v);
-
   render() {
-    return html`<p data-surface="${this.propertyContext.value ?? nothing}"><slot></slot></p> `;
+    return html` <p><slot></slot></p> `;
   }
 }
 customElements.define('consumer-element', ConsumerElement);
