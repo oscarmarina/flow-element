@@ -1,10 +1,37 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirect flow-element url=/demo/index.html"</title>
-    <meta http-equiv="refresh" content="0; url=/demo/index.html" />
-  </head>
-  <body></body>
-</html>
+<!DOCTYPE html>
+<head>
+  <script type="module" src="provider-element.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 1em;
+    }
+
+    consumer-element {
+      margin-top: 1rem;
+    }
+
+    hr {
+      border: none;
+      background: linear-gradient(to right, transparent, hsla(0, 0%, 60%, 0.5), transparent);
+      height: 0.0625rem;
+      margin: 0 0 1rem;
+    }
+  </style>
+</head>
+<body>
+  <provider-element>
+    <consumer-element>Consumer in slot</consumer-element>
+  </provider-element>
+  <hr />
+  <p>
+    Original playground:
+    <a
+      href="https://lit.dev/playground/#gist=3ddd4d9368a408508f88a5ae328478a3"
+      target="_blank"
+      rel="noopener noreferrer">
+      Playground Link
+    </a>
+  </p>
+</body>
