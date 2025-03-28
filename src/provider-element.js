@@ -11,32 +11,44 @@ class ProviderElement extends LitElement {
       contain: content;
     }
 
+    :host,
+    .container {
+      color: var(--_default-text-color);
+      background-color: var(--_default-bg-color);
+    }
+
     :host([hidden]),
     [hidden] {
       display: none !important;
     }
 
-    .container,
-    .nested-container {
+    .container {
       padding: 1rem;
     }
 
-    :host(:not([surface='dim'])),
-    :host([surface='dim']) .container,
-    :host(:not([surface='dim'])) .nested-container {
-      --surface: initial;
+    :host {
+      --_default-text-color: var(--color-primary-text, #342100);
+      --_default-bg-color: var(--color-primary-surface, #e5a427);
 
-      background-color: #e5a427;
-      color: #342100;
+      @container style(--surface: dim) {
+        --_default-text-color: var(--color-primary-dim-text, #ede1d3);
+        --_default-bg-color: var(--color-primary-dim-surface, #543b0f);
+      }
     }
 
-    :host([surface='dim']),
-    :host(:not([surface='dim'])) .container,
-    :host([surface='dim']) .nested-container {
-      --surface: dim;
+    .container {
+      --_default-text-color: var(--color-primary-dim-text, #ede1d3);
+      --_default-bg-color: var(--color-primary-dim-surface, #543b0f);
 
-      background-color: #543b0f;
-      color: #ede1d3;
+      @container not style(--surface: dim) {
+        --surface: dim;
+      }
+
+      @container style(--surface: dim) {
+        --_default-text-color: var(--color-primary-text, #342100);
+        --_default-bg-color: var(--color-primary-surface, #e5a427);
+        --surface: ;
+      }
     }
 
     hr {
@@ -67,7 +79,7 @@ class ProviderElement extends LitElement {
         <p><code>native div element:</code> container - provider element</p>
         <consumer-element>Consumer in Shadow DOM</consumer-element>
         <slot name="containerB"></slot>
-        <flow-element id="C-div" class="nested-container">
+        <flow-element id="C-div" class="container">
           <p><code>flow-element:</code> nested container - provider element</p>
           <slot name="nested-container"></slot>
           <consumer-element>Consumer in Shadow DOM</consumer-element>

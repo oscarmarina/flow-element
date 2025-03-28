@@ -39,20 +39,26 @@
     <button type="button">Toggle surface <span></span></button>
     <hr />
     <provider-element>
-      <consumer-element>Consumer in slot</consumer-element>
-      <consumer-element slot="containerA">Consumer in slot</consumer-element>
-      <consumer-element slot="containerB">Consumer in slot</consumer-element>
-      <consumer-element slot="nested-container">Consumer in slot</consumer-element>
+      <div>
+        <consumer-element>Consumer in slot</consumer-element>
+      </div>
+      <div slot="containerA">
+        <consumer-element>Consumer in slot</consumer-element>
+      </div>
+      <div slot="containerB">
+        <consumer-element>Consumer in slot</consumer-element>
+      </div>
+      <div slot="nested-container">
+        <consumer-element>Consumer in slot</consumer-element>
+      </div>
     </provider-element>
-
     <script type="module" src="./entry.js"></script>
     <script>
       const button = document.querySelector('button');
       button.addEventListener('click', ({target}) => {
-        const root = document.documentElement.style;
-        const surface = root.getPropertyValue('--surface');
-        root.setProperty('--surface', surface === 'dim' ? null : 'dim');
-        target.children[0].textContent = root.getPropertyValue('--surface');
+        const surface = document.body.style.getPropertyValue('--surface');
+        document.body.style.setProperty('--surface', surface === 'dim' ? null : 'dim');
+        target.children[0].textContent = document.body.style.getPropertyValue('--surface');
       });
     </script>
   </body>
