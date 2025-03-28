@@ -3,12 +3,15 @@ import {LitElement, html, css} from 'lit';
 class ConsumerElement extends LitElement {
   static styles = css`
     :host {
+      --_default-text-color: var(--color-primary-text, #432c00);
+      --_default-bg-color: var(--color-primary-surface, #e5c492);
+
       display: block;
+      contain: content;
       padding: 0.5rem 1rem;
       margin: 1rem 0;
-      background-color: #e5c492;
-      color: #432c00;
-      contain: content;
+      color: var(--_default-text-color);
+      background-color: var(--_default-bg-color);
     }
 
     :host([hidden]),
@@ -18,8 +21,8 @@ class ConsumerElement extends LitElement {
 
     @container style(--surface: dim) {
       :host {
-        background-color: #cee36a;
-        color: #2c3400;
+        --_default-text-color: var(--color-primary-dim-text, #2c3400);
+        --_default-bg-color: var(--color-primary-dim-surface, #cee36a);
       }
     }
   `;
