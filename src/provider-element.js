@@ -29,23 +29,28 @@ class ProviderElement extends LitElement {
       display: none !important;
     }
 
-    .container,
-    .nested-container {
+    :host,
+    .container {
+      color: var(--_default-text-color);
+      background-color: var(--_default-bg-color);
+    }
+
+    .container {
       padding: 1rem;
     }
 
     :host(:not([surface='dim'])),
     :host([surface='dim']) .container,
-    :host(:not([surface='dim'])) .nested-container {
-      background-color: #e5a427;
-      color: #342100;
+    :host(:not([surface='dim'])) .container .container {
+      --_default-text-color: var(--color-primary-text, #342100);
+      --_default-bg-color: var(--color-primary-surface, #e5a427);
     }
 
     :host([surface='dim']),
     :host(:not([surface='dim'])) .container,
-    :host([surface='dim']) .nested-container {
-      background-color: #543b0f;
-      color: #ede1d3;
+    :host([surface='dim']) .container .container {
+      --_default-text-color: var(--color-primary-dim-text, #ede1d3);
+      --_default-bg-color: var(--color-primary-dim-surface, #543b0f);
     }
 
     hr {
@@ -104,7 +109,7 @@ class ProviderElement extends LitElement {
         <p><code>native div element:</code> container - provider element</p>
         <consumer-element>Consumer in Shadow DOM</consumer-element>
         <slot name="containerB"></slot>
-        <flow-element id="C-div" class="nested-container" .surface="${this.surface}">
+        <flow-element id="C-div" class="container" .surface="${this.surface}">
           <p><code>flow-element:</code> nested container - provider element</p>
           <slot name="nested-container"></slot>
           <consumer-element>Consumer in Shadow DOM</consumer-element>
