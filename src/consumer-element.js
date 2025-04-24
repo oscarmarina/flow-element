@@ -35,10 +35,14 @@ class ConsumerElement extends LitElement {
     super();
     this.surface = undefined;
 
-    this.propertyContext = new BlockquoteControllerContextMeta(this, {
-      context: consumerContext,
-      callback: this.callback,
-    });
+    this.propertyContext = new BlockquoteControllerContextMeta(
+      this,
+      {
+        context: consumerContext,
+        callback: this.callback,
+      },
+      true
+    );
   }
 
   callback = (v) => v && (this.surface = v);
