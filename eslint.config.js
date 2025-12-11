@@ -1,10 +1,8 @@
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
 import js from '@eslint/js';
-import {FlatCompat} from '@eslint/eslintrc';
 import {configs as wc} from 'eslint-plugin-wc';
 import {configs as lit} from 'eslint-plugin-lit';
-import * as importPlugin from 'eslint-plugin-import';
+import {default as litA11y} from 'eslint-plugin-lit-a11y';
+import {flatConfigs as importPlugin} from 'eslint-plugin-import';
 import tseslint from 'typescript-eslint';
 import tsParser from '@typescript-eslint/parser';
 import htmlEslint from '@html-eslint/eslint-plugin';
@@ -13,21 +11,10 @@ import eslintPluginHtml from 'eslint-plugin-html';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import globals from 'globals';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const fileTypes = '{js,ts,mjs}';
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  resolvePluginsRelativeTo: __dirname,
-});
-
 // eslint-plugin-import
-const importFilesConfig = [
-  importPlugin.flatConfigs?.recommended,
-  importPlugin.flatConfigs?.typescript,
-].map((conf) => ({
+const importFilesConfig = [importPlugin.recommended, importPlugin.typescript].map((conf) => ({
   ...conf,
   files: [`**/*.${fileTypes}`],
   languageOptions: {
@@ -57,6 +44,21 @@ const importFilesRules = {
     ],
     'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
+  },
+};
+
+// eslint-plugin-lit-a11y
+const litA11yFilesConfig = [litA11y.configs.recommended].map((conf) => ({
+  ...conf,
+  files: [`**/*.${fileTypes}`],
+}));
+
+const litA11yFilesRules = {
+  files: [`**/*.${fileTypes}`],
+  rules: {
+    'lit-a11y/no-autofocus': 'off',
+    'lit-a11y/anchor-is-valid': 'off',
+    'lit-a11y/click-events-have-key-events': 'off',
   },
 };
 
@@ -123,7 +125,7 @@ const htmlFilesConfig = [htmlEslint.configs['flat/recommended']].map((conf) => (
 const htmlFilesRules = {
   files: ['**/*.html'],
   rules: {
-    '@html-eslint/indent': ['error', 2],
+    '@html-eslint/indent': 'off',
     '@html-eslint/require-closing-tags': 'off',
     '@html-eslint/no-extra-spacing-attrs': 'off',
     '@html-eslint/attrs-newline': 'off',
@@ -160,9 +162,10 @@ export default [
     ],
   },
   js.configs.recommended,
-  ...compat.extends('plugin:lit-a11y/recommended'),
   ...importFilesConfig,
   importFilesRules,
+  ...litA11yFilesConfig,
+  litA11yFilesRules,
   ...wcFilesConfig,
   wcFilesRules,
   ...litFilesConfig,
@@ -184,7 +187,6 @@ export default [
     },
 
     rules: {
-      'class-methods-use-this': 'off',
       'no-unused-expressions': [
         'error',
         {
@@ -192,19 +194,7 @@ export default [
           allowTernary: true,
         },
       ],
-      'object-curly-newline': 'off',
-      indent: [
-        'error',
-        2,
-        {
-          SwitchCase: 1,
-          ignoredNodes: ['PropertyDefinition', 'TemplateLiteral *'],
-        },
-      ],
       'no-empty-function': 'error',
-      'lit-a11y/no-autofocus': 'off',
-      'lit-a11y/anchor-is-valid': 'off',
-      'lit-a11y/click-events-have-key-events': 'off',
     },
   },
   {

@@ -101,10 +101,9 @@ class ProviderElement extends LitElement {
       <div
         id="B-div"
         class="container"
-        data-surface="${contextMetaProvider(
-          handleSurface(this.surface),
-          /** @type {*} */ (consumerContext)
-        )}"
+        data-surface="${contextMetaProvider(handleSurface(this.surface), {
+          context: consumerContext,
+        })}"
       >
         <p><code>native div element:</code> container - provider element</p>
         <consumer-element>Consumer in Shadow DOM</consumer-element>
